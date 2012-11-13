@@ -3,7 +3,8 @@ var vm = require('vm'),
     path = require('path'),
     vendorDir = __dirname + '/../../vendor',
     headlessEmber = fs.readFileSync(vendorDir + '/headless-ember.js', 'utf8'),
-    emberJs = fs.readFileSync(vendorDir + '/ember.js', 'utf8');
+    emberJs = fs.readFileSync(vendorDir + '/ember-1.0.0-pre.2.js', 'utf8'),
+    handlebarsJs = fs.readFileSync(vendorDir + '/handlebars-1.0.rc.1.min.js', 'utf8');
 
 exports.precompile = function(file) {
     // Create a context with the file.
@@ -13,6 +14,7 @@ exports.precompile = function(file) {
 
     // Load ember, headless-ly.
     vm.runInContext(headlessEmber, context, 'headless-ember.js');
+    vm.runInContext(handlebarsJs, context, 'handlebars.js');
     vm.runInContext(emberJs, context, 'ember.js');
 
     // Compile the file inside the context.
